@@ -1,0 +1,60 @@
+    def table_estoque(self):
+        cn = sqlite3.connect('system.bd')
+        result = pd.read_sql_query("SELECT * FROM Notas WHERE data_saída = '' ", cn)
+        result = result.values.tolist()
+
+        self.x = ""
+
+        for i in result:
+            #faz o check para identificar a mesma nota e adicionar um nível #
+            if i[0] == self.x:
+                QtreeWidgetItem(self.campo, i)
+
+            else:
+                self.campo = QTreeWidgetItem(self.tw_estoque, i)
+                self.campo.setCheckState(0, QtCore.Qt.CheckStare.Unchecked)
+
+
+            self.x = i[0]
+
+        self.tw_estoque.setSortingEnabled(True)
+
+        for i in range(1,15):
+            self.tw_estoque.resizeColumnToContents(i)
+
+    def table_saida(self):
+        pass
+
+    def table_geral(self):
+        pass
+
+
+ #Criar Tabelas Gerencimaneto #
+    def table_estoque(self):
+        cn = sqlite3.connect('system.bd')
+        result = pd.read_sql_query("SELECT * FROM Notas WHERE data_saída = '' ", cn)
+        result = result.values.tolist()
+
+        self.x = ""
+
+        for i in result:
+            if i[0] != self.x:
+                self.campo = QTreeWidgetItem(self.tw_estoque, i)
+                self.campo.setCheckState(0, QtCore.Qt.CheckStare.Unchecked)
+
+            #faz o check para identificar a mesma nota e adicionar um nível #
+            else:
+                QtreeWidgetItem(self.campo, i)
+
+            self.x = i[0]
+
+        self.tw_estoque.setSortingEnabled(True)
+
+        for i in range(1,15):
+            self.tw_estoque.resizeColumnToContents(i)
+
+    def table_saida(self):
+        pass
+
+    def table_geral(self):
+        pass
